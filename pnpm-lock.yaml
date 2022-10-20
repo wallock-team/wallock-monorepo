@@ -4,9 +4,12 @@ importers:
 
   .:
     specifiers:
+      dotenv-cli: ^6.0.0
       eslint-config-custom: workspace:*
       prettier: latest
       turbo: latest
+    dependencies:
+      dotenv-cli: 6.0.0
     devDependencies:
       eslint-config-custom: link:packages/eslint-config-custom
       prettier: 2.7.1
@@ -4006,6 +4009,16 @@ packages:
     dependencies:
       '@babel/runtime': 7.19.4
       csstype: 3.1.1
+    dev: false
+
+  /dotenv-cli/6.0.0:
+    resolution: {integrity: sha512-qXlCOi3UMDhCWFKe0yq5sg3X+pJAz+RQDiFN38AMSbUrnY3uZshSfDJUAge951OS7J9gwLZGfsBlWRSOYz/TRg==}
+    hasBin: true
+    dependencies:
+      cross-spawn: 7.0.3
+      dotenv: 16.0.3
+      dotenv-expand: 8.0.3
+      minimist: 1.2.7
     dev: false
 
   /dotenv-expand/8.0.3:
