@@ -1,0 +1,6 @@
+[submodule "apps/wallock-web"]
+	path = apps/wallock-web
+	url = git@github.com:wallock-team/wallock-web.git
+[submodule "apps/wallock-server"]
+	path = apps/wallock-server
+	url = git@github.com:wallock-team/wallock-server.git
