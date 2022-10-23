@@ -1,0 +1,128 @@
+[
+  {
+    "name": "Eating",
+    "type": "expense",
+    "icon": "Eating",
+    "group": "Monthly Expense"
+  },
+  {
+    "name": "Rent House",
+    "type": "expense",
+    "icon": "Rent House",
+    "group": "Monthly Expense"
+  },
+  {
+    "name": "Water bill",
+    "type": "expense",
+    "icon": "Water bill",
+    "group": "Monthly Expense"
+  },
+  {
+    "name": "Telephone bill",
+    "type": "expense",
+    "icon": "Telephone bill",
+    "group": "Monthly Expense"
+  },
+  {
+    "name": "Electric bill",
+    "type": "expense",
+    "icon": "Electric bill",
+    "group": "Monthly Expense"
+  },
+  {
+    "name": "Gas bill",
+    "type": "expense",
+    "icon": "Gas bill",
+    "group": "Monthly Expense"
+  },
+  {
+    "name": "Internet services",
+    "type": "expense",
+    "icon": "Internet bill",
+    "group": "Monthly Expense"
+  },
+  {
+    "name": "Other bill",
+    "type": "expense",
+    "icon": "Other bill",
+    "group": "Monthly Expense"
+  },
+  {
+    "name": "Vehicle maintenance",
+    "type": "expense",
+    "icon": "vehicle maintenance",
+    "group": "Up and comer"
+  },
+  {
+    "name": "Insurance",
+    "type": "expense",
+    "icon": "Insurance",
+    "group": "Up and comer"
+  },
+  {
+    "name": "Education",
+    "type": "expense",
+    "icon": "Education",
+    "group": "Up and comer"
+  },
+  {
+    "name": "Housewares",
+    "type": "expense",
+    "icon": "Housewares",
+    "group": "Up and comer"
+  },
+  {
+    "name": "Personal stuff",
+    "type": "expense",
+    "icon": "Personal stuff",
+    "group": "Up and comer"
+  },
+  {
+    "name": "Pet",
+    "type": "expense",
+    "icon": "Pet",
+    "group": "Up and comer"
+  },
+  {
+    "name": "House service",
+    "type": "expense",
+    "icon": "House service",
+    "group": "Up and comer"
+  },
+  {
+    "name": "Other expense",
+    "type": "expense",
+    "icon": "Other expense",
+    "group": "Up and comer"
+  },
+  {
+    "name": "Sport",
+    "type": "expense",
+    "icon": "Sport",
+    "group": "Fun and Relax"
+  },
+  {
+    "name": "Make Up",
+    "type": "expense",
+    "icon": "Make Up",
+    "group": "Fun and Relax"
+  },
+  {
+    "name": "Bank interest",
+    "type": "income",
+    "icon": "Bank interest",
+    "group": "Invest"
+  },
+  {
+    "name": "Salary",
+    "type": "income",
+    "icon": "Salary",
+    "group": "Income"
+  },
+  {
+    "name": "Other income",
+    "type": "income",
+    "icon": "Other income",
+    "group": "Income"
+  }
+]
