@@ -25,7 +25,7 @@ import * as Yup from 'yup'
 import Api from 'lib/api/api'
 import withAuthPage from 'lib/auth/withAuthPage'
 import { CreateTransactionDto } from 'lib/types/transactions'
-import { Category } from 'lib/api/types'
+import { Category } from 'lib/types/categories'
 
 type Props = {
   categories: Category[]

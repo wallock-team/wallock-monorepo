@@ -17,6 +17,6 @@ export type Transaction = BaseEntity & {
   amount: number
   note?: string
   date: Date
-  categories: Category
+  category: Category
   user: User
 }

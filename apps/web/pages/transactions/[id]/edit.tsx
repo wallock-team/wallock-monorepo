@@ -26,9 +26,10 @@ import Api from 'lib/api/api'
 import withAuthPage from 'lib/auth/withAuthPage'
 import {
   CreateTransactionDto,
+  Transaction,
   UpdateTransactionDto,
 } from 'lib/types/transactions'
-import { Category } from 'lib/api/types'
+import { Category } from 'lib/types/categories'
 
 type Props = {
   transactionToBeEdited: Transaction

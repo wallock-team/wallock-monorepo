@@ -24,8 +24,6 @@ export const getServerSideProps: GetServerSideProps = withAuthPage(
     const api = await Api.fromServer(context)
 
     const transaction = await api.transactions.getById(context.params?.id)
-    console.log(transaction)
-
     return {
       props: {
         transaction,
@@ -33,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = withAuthPage(
     }
   }
 )
-const TransactionDetail: NextPage = (props) => {
+const TransactionDetail: NextPage = (props: any) => {
   const router = useRouter()
   return (
     <>
