@@ -6,7 +6,7 @@ import Tab from '@mui/material/Tab';
 export default function Transaction() {
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number | string) => {
+  const handleChange = (event: any, newValue: any) => {
     setValue(newValue);
   };
 

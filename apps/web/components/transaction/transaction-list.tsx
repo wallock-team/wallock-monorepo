@@ -20,14 +20,14 @@ type Transaction = {
   note?: string
 }
 
-const TransactionList = (props: Props) => {
+const TransactionList = (props: any) => {
   const router = useRouter()
   function handleOnClick(id: number): void {
     router.push(`transactions/${id}`)
   }
   return (
     <List>
-      {props.transactions.map((t) => (
+      {props.transactions.map((t: any) => (
         <ListItem
           key={t.id}
           secondaryAction={<Typography variant='body1'>{t.amount}</Typography>}
