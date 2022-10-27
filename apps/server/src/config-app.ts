@@ -20,7 +20,7 @@ export default function configApp(app: INestApplication) {
       })
     )
     .enableCors({
-      origin: ['http://localhost:3001'],
+      origin: process.env.ENABLE_CORS,
       credentials: true
     })
 }
