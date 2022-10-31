@@ -14,13 +14,8 @@ import { CategoriesModule } from './categories/categories.module'
 import { CategoriesController } from './categories/categories.controller'
 import { TransactionsModule } from './transactions/transactions.module'
 import { Transaction } from './transactions/entities/transaction.entity'
-import { ServeStaticModule } from '@nestjs/serve-static'
-import { join } from 'path'
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'static')
-    }),
     TypeOrmModule.forRoot({
       type: 'better-sqlite3',
       database: ':memory:',

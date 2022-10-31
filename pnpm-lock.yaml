@@ -26,7 +26,6 @@ importers:
       '@nestjs/passport': ^8.2.2
       '@nestjs/platform-express': ^8.0.0
       '@nestjs/schematics': ^8.0.0
-      '@nestjs/serve-static': ^3.0.0
       '@nestjs/testing': ^8.0.0
       '@nestjs/typeorm': ^8.1.2
       '@types/axios': ^0.14.0
@@ -53,7 +52,6 @@ importers:
       eslint-plugin-prettier: ^4.0.0
       express-session: ^1.17.3
       husky: ^8.0.1
-      install: ^0.13.0
       jest: 28.0.3
       jsonwebtoken: ^8.5.1
       jwks-rsa: ^2.1.4
@@ -88,14 +86,12 @@ importers:
       '@nestjs/mapped-types': 1.2.0_7zw7e46jhcfuw5vwuwho2brjki
       '@nestjs/passport': 8.2.2_ajebcnomotz225cztrmzhvaeiq
       '@nestjs/platform-express': 8.4.7_7tsmhnugyerf5okgqzer2mfqme
-      '@nestjs/serve-static': 3.0.0_7tsmhnugyerf5okgqzer2mfqme
       '@nestjs/typeorm': 8.1.4_3s6uo3vw5b67mj2ct3iregv5v4
       '@types/jsonwebtoken': 8.5.9
       better-sqlite3: 7.6.2
       class-transformer: 0.5.1
       class-validator: 0.13.2
       express-session: 1.17.3
-      install: 0.13.0
       jsonwebtoken: 8.5.1
       jwks-rsa: 2.1.5
       lodash: 4.17.21
@@ -1667,17 +1663,6 @@ packages:
     transitivePeerDependencies:
       - chokidar
     dev: true
-
-  /@nestjs/serve-static/3.0.0_7tsmhnugyerf5okgqzer2mfqme:
-    resolution: {integrity: sha512-TpXjgs4136dQqWUjEcONqppqXDsrJhRkmKWzuBMOUAnP4HjHpNmlycvkHnDnWSoG2YD4a7Enh4ViYGWqCfHStA==}
-    peerDependencies:
-      '@nestjs/common': ^9.0.0
-      '@nestjs/core': ^9.0.0
-    dependencies:
-      '@nestjs/common': 8.4.7_x6yqyveuahcdef4z4mxykmuv6a
-      '@nestjs/core': 8.4.7_rvglusfgyoseqzubhh6546rvkq
-      path-to-regexp: 0.2.5
-    dev: false
 
   /@nestjs/testing/8.4.7_yg656aic4dli3q2c2sx4xyqza4:
     resolution: {integrity: sha512-aedpeJFicTBeiTCvJWUG45WMMS53f5eu8t2fXsfjsU1t+WdDJqYcZyrlCzA4dL1B7MfbqaTURdvuVVHTmJO8ag==}
@@ -7632,10 +7617,6 @@ packages:
 
   /path-to-regexp/0.1.7:
     resolution: {integrity: sha512-5DFkuoqlv1uYQKxy8omFBeJPQcdoE07Kv2sferDCrAq1ohOU+MSDswDIbnx3YAM60qIOnYa53wBhXW0EbMonrQ==}
-
-  /path-to-regexp/0.2.5:
-    resolution: {integrity: sha512-l6qtdDPIkmAmzEO6egquYDfqQGPMRNGjYtrU13HAXb3YSRrt7HSb1sJY0pKp6o2bAa86tSB6iwaW2JbthPKr7Q==}
-    dev: false
 
   /path-to-regexp/3.2.0:
     resolution: {integrity: sha512-jczvQbCUS7XmS7o+y1aEO9OBVFeZBQ1MDSEqmO7xSoPgOPoowY/SxLpZ6Vh97/8qHZOteiCKb7gkG9gA2ZUxJA==}
