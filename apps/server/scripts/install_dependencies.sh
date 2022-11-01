@@ -4,7 +4,7 @@
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash\
 
 # Reset Bash profile to update NVM configuration
-source ~/.bashrc
+source /home/ec2-user/.bash_profile
 
 # Install Node 16 and set it as the default version
 nvm install 16
