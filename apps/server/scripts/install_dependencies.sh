@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Install Node
+sudo apt install nodejs
+
 # Node version and NPM version
 node --version
 npm --version
