@@ -8,7 +8,7 @@ os: linux
 hooks:
   BeforeInstall:
     - location: ./apps/server/scripts/install_dependencies.sh
-      timeout: 300
+      timeout: 600
       runas: root
   StartServer:
     - location: ./apps/server/scripts/start_server.sh
