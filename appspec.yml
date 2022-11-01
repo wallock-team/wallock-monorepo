@@ -1,8 +1,20 @@
+# This file is used to support CI/CD of `apps/server`,
+# which uses AWS CodePipeline, CodeBuild and CodeDeploy
+
 version: 0.0
 
 os: linux
 
 hooks:
   BeforeInstall:
-    - location: scripts/install_dependencies.sh
-      timeout: 600
+    - location: ./apps/server/scripts/install_dependencies.sh
+      timeout: 300
+      runas: root
+  StartServer:
+    - location: ./apps/server/scripts/start_server.sh
+      timeout: 300
+      runas: root
+  StopServer:
+    - location: ./apps/server/scripts/stop_server.sh
+      timeout: 300
+      runas: root
