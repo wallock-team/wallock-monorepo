@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "NestJS",
-  "extends": "./base.json",
+  "display": "Wallock Server",
+  "extends": "./../../packages/tsconfig/base.json",
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
