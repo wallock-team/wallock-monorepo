@@ -3,7 +3,7 @@ import { UsersService } from './users.service'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { Request } from 'express'
 import JwtAuthGuard from '../auth/jwt-auth.guard'
-import { handleError } from '../error/errorHandler'
+import { AuthenticatedRequest } from '../commons'
 
 @Controller('users')
 export class UsersController {
@@ -12,21 +12,16 @@ export class UsersController {
   @Get('/me')
   @UseGuards(JwtAuthGuard)
   async findOne(@Req() req: Request) {
-    try {
-      if (req.user) return req.user
-    } catch (err) {
-      handleError(err.Message)
-    }
+    if (req.user) return req.user
   }
 
   @Patch()
   @UseGuards(JwtAuthGuard)
-  async update(@Body() updateUserDto: UpdateUserDto, @Req() req) {
+  async update(
+    @Body() updateUserDto: UpdateUserDto,
+    @Req() req: AuthenticatedRequest
+  ) {
     let userId = req.user.id
-    try {
-      return await this.usersService.update(updateUserDto, userId)
-    } catch (error) {
-      handleError(error.message)
-    }
+    return await this.usersService.update(updateUserDto, userId)
   }
 }
