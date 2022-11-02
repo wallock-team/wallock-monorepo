@@ -35,10 +35,6 @@ export class UsersService {
     }
   }
 
-  async findAll(): Promise<User[]> {
-    return await this.userRepository.find()
-  }
-
   async findOne(opts?: FindOneOptions) {
     let user = await this.userRepository.findOne(opts)
     if (user) {
@@ -47,9 +43,8 @@ export class UsersService {
     throw new Error(ErrorMessage.NotFoundUser)
   }
 
-  async findByIssSub(iss: string, sub: string) {
-    return await this.userRepository.findOne({ where: { iss: iss,
-sub: sub } })
+  async findByIssAndSub(iss: string, sub: string) {
+    return await this.userRepository.findOne({ where: { iss: iss, sub: sub } })
   }
 
   async update(updateUserDto: UpdateUserDto, userId: number) {
@@ -69,5 +64,20 @@ sub: sub } })
     if (del_user) {
       return await this.userRepository.remove(del_user)
     }
+  }
+
+  async findUserByIssAndSub({
+    iss,
+    sub
+  }: {
+    iss?: string
+    sub?: string
+  }): Promise<User | null> {
+    if (!iss || !sub) return null
+
+    return await this.userRepository.findOneBy({
+      iss,
+      sub
+    })
   }
 }
