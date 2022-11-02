@@ -3,15 +3,21 @@ import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export default class EnvService {
-  constructor(private readonly configService: ConfigService) {
+  constructor(configService: ConfigService) {
     this.env = configService.get('ENV')
-    this.oidc.google.clientId = configService.get('OIDC_GOOGLE_CLIENT_ID')
-    this.oidc.google.clientSecret = configService.get(
-      'OIDC_GOOGLE_CLIENT_SECRET'
-    )
+    this.baseUrl = configService.get('API_URL')
+    this.oidc
+    this.oidc = {
+      google: {
+        clientId: configService.get('OIDC_GOOGLE_CLIENT_ID'),
+        clientSecret: configService.get('OIDC_GOOGLE_CLIENT_SECRET')
+      }
+    }
   }
 
   public readonly env: string
+
+  public readonly baseUrl: string
 
   public readonly oidc: {
     google: OpenIdProviderSetting
