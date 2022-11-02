@@ -23,7 +23,7 @@ export class Category extends BaseEntity {
   @Column()
   userId: number
 
-  @ManyToOne(() => User, user => user.categories, {
+  @ManyToOne(() => User, {
     cascade: false
   })
   user: User
