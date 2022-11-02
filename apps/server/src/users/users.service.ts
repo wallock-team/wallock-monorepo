@@ -11,8 +11,7 @@ import { User } from './entities/user.entity'
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private userRepository: Repository<User>,
-    private cateService: CategoriesService
+    private userRepository: Repository<User>
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -30,7 +29,6 @@ export class UsersService {
       )
     } else {
       let user = await this.userRepository.save(createUserDto)
-      await this.cateService.createInitCate(user)
       return user
     }
   }
@@ -56,13 +54,6 @@ export class UsersService {
       return await this.userRepository.findOne({
         where: { id: userId }
       })
-    }
-  }
-
-  async delete(id: number) {
-    const del_user = await this.userRepository.findOne({ where: { id: id } })
-    if (del_user) {
-      return await this.userRepository.remove(del_user)
     }
   }
 

@@ -2,15 +2,12 @@ import { Repository } from 'typeorm'
 import { User } from './entities/user.entity'
 import { UsersService } from './users.service'
 
-const service = new UsersService(
-  {
-    findOneBy: async function (where: { iss: string; sub: string }) {
-      if (where.iss === 'abc' && where.sub === 'abc') return {}
-      else return null
-    }
-  } as Repository<User>,
-  null
-)
+const service = new UsersService({
+  findOneBy: async function (where: { iss: string; sub: string }) {
+    if (where.iss === 'abc' && where.sub === 'abc') return {}
+    else return null
+  }
+} as Repository<User>)
 
 describe('UsersService', () => {
   describe('findUserByIssAndSub', () => {
