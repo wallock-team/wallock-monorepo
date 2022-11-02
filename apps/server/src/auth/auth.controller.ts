@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Param,
+  Post,
   Query,
   Req,
   Res,
@@ -12,18 +13,23 @@ import GoogleOidcAuthGuard from './google-oidc-auth.guard'
 import MockOidcAuthGuard from './mock-oidc-auth.guard'
 import { Response, Request } from 'express'
 import { ConfigService } from '@nestjs/config'
+import GoogleAuthGuard from './google-auth.guard'
 
-@Controller('auth')
+@Controller()
 export default class AuthController {
   constructor(private readonly configService: ConfigService) {}
 
+  @UseGuards(GoogleAuthGuard)
+  @Get('/login-with-google')
+  loginWithGoogle() {}
+
   @UseGuards(JwtAuthGuard)
-  @Get('am-i-logged-in')
+  @Get('/auth/am-i-logged-in')
   amILoggedIn(@Req() req: any) {
     return req.user
   }
 
-  @Get('login/social-login/:issuer')
+  @Get('/auth/login/social-login/:issuer')
   socialLogin(
     @Param('issuer') issuer: string,
     @Query('authorized_uri') authorizedUri: string,
@@ -38,14 +44,14 @@ export default class AuthController {
   }
 
   @UseGuards(GoogleOidcAuthGuard)
-  @Get('login-with-google')
-  loginWithGoogle() {}
+  @Get('/auth/login-with-google')
+  _loginWithGoogle() {}
 
   @UseGuards(MockOidcAuthGuard)
   @Get('login-with-mock')
   loginWithMock() {}
 
-  @Get('/greet')
+  @Get('/auth/greet')
   @UseGuards(JwtAuthGuard)
   async greet(@Req() req: Request) {
     return req.user
