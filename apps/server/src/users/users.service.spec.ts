@@ -14,6 +14,15 @@ const service = new UsersService(
 
 describe('UsersService', () => {
   describe('findUserByIssAndSub', () => {
+    it('should return a user when the record with provided `sub` and `iss` exists', async () => {
+      const returned = await service.findUserByIssAndSub({
+        iss: 'abc',
+        sub: 'abc'
+      })
+
+      expect(returned).toBeDefined()
+    })
+
     it('should return null when `iss` parameter is missing', async () => {
       const returned = await service.findUserByIssAndSub({
         sub: 'abc'
@@ -37,15 +46,6 @@ describe('UsersService', () => {
       })
 
       expect(returned).toBeNull()
-    })
-
-    it('should return a user when the record with provided `sub` and `iss` exists', async () => {
-      const returned = await service.findUserByIssAndSub({
-        iss: 'abc',
-        sub: 'abc'
-      })
-
-      expect(returned).toBeDefined()
     })
   })
 })
