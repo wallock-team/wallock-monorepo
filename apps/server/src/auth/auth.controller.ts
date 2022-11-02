@@ -30,7 +30,7 @@ export default class AuthController {
     @Res() res: Response
   ) {
     const loginUrl = `${this.configService.getOrThrow<string>(
-      'BASE_URL'
+      'SERVER_URL'
     )}/auth/login-with-${issuer}`
 
     res.cookie('authorized_uri', authorizedUri)

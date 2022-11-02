@@ -23,7 +23,7 @@ export default class MockOidcStrategy extends PassportStrategy(
       client_secret: clientSecret
     })
     const redirectUri =
-      configService.getOrThrow<string>('BASE_URL') + '/auth/login-with-mock'
+      configService.getOrThrow<string>('SERVER_URL') + '/auth/login-with-mock'
 
     super({
       client,
