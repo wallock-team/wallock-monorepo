@@ -52,7 +52,7 @@
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
-    "@nestjs/testing": "^8.0.0",
+    "@nestjs/testing": "^8.4.7",
     "@types/axios": "^0.14.0",
     "@types/better-sqlite3": "^7.5.0",
     "@types/cookie-parser": "^1.4.3",

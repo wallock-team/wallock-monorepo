@@ -26,7 +26,7 @@ importers:
       '@nestjs/passport': ^8.2.2
       '@nestjs/platform-express': ^8.0.0
       '@nestjs/schematics': ^8.0.0
-      '@nestjs/testing': ^8.0.0
+      '@nestjs/testing': ^8.4.7
       '@nestjs/typeorm': ^8.1.2
       '@types/axios': ^0.14.0
       '@types/better-sqlite3': ^7.5.0
