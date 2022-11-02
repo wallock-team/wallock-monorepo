@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "pnpm install && node apps/server/dist/main",
+    "start": "npm install && node apps/server/dist/main",
     "build": "turbo run build",
     "dev": "dotenv turbo run dev --parallel",
     "lint": "turbo run lint",
