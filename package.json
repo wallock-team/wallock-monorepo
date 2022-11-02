@@ -7,6 +7,7 @@
     "packages/*"
   ],
   "scripts": {
+    "start": "node apps/server/dist/main",
     "build": "turbo run build",
     "dev": "dotenv turbo run dev --parallel",
     "lint": "turbo run lint",
