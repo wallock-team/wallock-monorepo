@@ -16,7 +16,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       baseUrl: process.env.WEB_URL,
-      backendBaseUrl: process.env.SERVER_URL,
+      backendBaseUrl: process.env.API_URL,
     },
   }
 }

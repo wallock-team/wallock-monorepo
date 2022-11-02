@@ -9,11 +9,12 @@ import { ConfigModule } from '@nestjs/config'
 import { AuthModule } from './auth/auth.module'
 import AuthController from './auth/auth.controller'
 import { UsersController } from './users/users.controller'
-import configuration from './config/configuration'
+import config from './config/config'
 import { CategoriesModule } from './categories/categories.module'
 import { CategoriesController } from './categories/categories.controller'
 import { TransactionsModule } from './transactions/transactions.module'
 import { Transaction } from './transactions/entities/transaction.entity'
+import configSchema from './config/config-schema'
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -23,7 +24,8 @@ import { Transaction } from './transactions/entities/transaction.entity'
       synchronize: true
     }),
     ConfigModule.forRoot({
-      load: [configuration]
+      validationSchema: configSchema,
+      load: [config]
     }),
     UsersModule,
     AuthModule,
