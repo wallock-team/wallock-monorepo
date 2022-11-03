@@ -14,8 +14,6 @@ import { Response, Request } from 'express'
 import { ConfigService } from '@nestjs/config'
 import GoogleAuthGuard from './google-auth.guard'
 import { AuthenticatedRequest } from '../commons'
-import { ReadUserDto } from 'dtos/users'
-import { RestResponse } from 'dtos/common'
 
 @Controller()
 export default class AuthController {
@@ -23,11 +21,8 @@ export default class AuthController {
 
   @UseGuards(GoogleAuthGuard)
   @Get('/login-with-google')
-  loginWithGoogle(@Req() req: AuthenticatedRequest): RestResponse<ReadUserDto> {
-    return {
-      message: `Logged in successfully. Welcome back, ${req.user.name}!`,
-      data: new ReadUserDto(req.user)
-    }
+  loginWithGoogle(@Req() req: AuthenticatedRequest) {
+    return req.user
   }
 
   @UseGuards(JwtAuthGuard)

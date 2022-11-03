@@ -2,16 +2,6 @@
   "display": "Data Transfer Objects",
   "extends": "../ts-config/base.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
-    "preserveWatchOutput": true,
-    "skipLibCheck": true,
-    "noEmit": true,
-    "strict": true
-  },
-  "include": ["./**/*"],
-  "exclude": ["node_modules"]
+    "experimentalDecorators": true
+  }
 }

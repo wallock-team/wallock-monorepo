@@ -1,4 +1,5 @@
-export type RestResponse<Data = undefined> = {
+export type RestResponse<Data> = {
+  code: number
   message?: string
   data?: Data
 }
