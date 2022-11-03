@@ -2,7 +2,6 @@ import {
   Controller,
   Get,
   Param,
-  Post,
   Query,
   Req,
   Res,
@@ -14,6 +13,7 @@ import MockOidcAuthGuard from './mock-oidc-auth.guard'
 import { Response, Request } from 'express'
 import { ConfigService } from '@nestjs/config'
 import GoogleAuthGuard from './google-auth.guard'
+import { AuthenticatedRequest } from '../commons'
 
 @Controller()
 export default class AuthController {
@@ -21,7 +21,9 @@ export default class AuthController {
 
   @UseGuards(GoogleAuthGuard)
   @Get('/login-with-google')
-  loginWithGoogle() {}
+  loginWithGoogle(@Req() req: AuthenticatedRequest) {
+    return req.user
+  }
 
   @UseGuards(JwtAuthGuard)
   @Get('/auth/am-i-logged-in')

@@ -3,6 +3,7 @@ import { PassportStrategy } from '@nestjs/passport'
 import { Strategy, Profile, StrategyOptions } from 'passport-google-oauth20'
 import EnvService from 'src/env/env.service'
 import { User } from 'src/users/entities/user.entity'
+import AuthService from './auth.service'
 
 export default class GoogleStrategy extends PassportStrategy(
   Strategy,
@@ -10,7 +11,8 @@ export default class GoogleStrategy extends PassportStrategy(
 ) {
   constructor(
     @Inject(forwardRef(() => EnvService))
-    envService: EnvService
+    envService: EnvService,
+    private readonly authService: AuthService
   ) {
     const strategyOpts: StrategyOptions = {
       clientID: envService.oidc.google.clientId,
@@ -24,10 +26,11 @@ export default class GoogleStrategy extends PassportStrategy(
 
   async validate(
     accessToken: string,
-    refreshToken: string,
+    // Currently, `refresh_token` will always be undefined because we don't request it
+    // This will be used later when implementing token refreshing feature
+    _refreshToken: string,
     profile: Profile
   ): Promise<User | false> {
-    console.log(accessToken)
-    return false
+    return await this.authService.loginOrRegisterUserFromGoogle(profile)
   }
 }
