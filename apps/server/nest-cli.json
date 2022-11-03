@@ -1,5 +1,22 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src"
+  "monorepo": true,
+  "sourceRoot": "./src",
+  "root": "./",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "./tsconfig.json"
+  },
+  "projects": {
+    "wallock-server": {
+      "type": "application",
+      "root": "./",
+      "entryFile": "./main.ts",
+      "sourceRoot": "./src",
+      "compilerOptions": {
+        "tsConfigPath": "./tsconfig.json"
+      }
+    }
+  }
 }

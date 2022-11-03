@@ -3,7 +3,7 @@
   "display": "Wallock Server",
   "extends": "./../../packages/tsconfig/base.json",
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
@@ -20,5 +20,7 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true
-  }
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }
