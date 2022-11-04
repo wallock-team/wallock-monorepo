@@ -9,6 +9,8 @@ import { User } from 'src/users'
 import AuthController from './auth.controller'
 import { AuthService } from './auth.service'
 import { GoogleStrategy } from './google.strategy'
+import { JwtStrategy } from './jwt.strategy'
+import { UsersModule } from 'src/users'
 
 const ONE_HOUR = 3600
 
@@ -16,6 +18,7 @@ const ONE_HOUR = 3600
   imports: [
     PassportModule,
     EnvModule,
+    UsersModule,
     TypeOrmModule.forFeature([User]),
     JwtModule.registerAsync({
       imports: [EnvModule],
@@ -27,7 +30,7 @@ const ONE_HOUR = 3600
     })
   ],
   controllers: [AuthController],
-  providers: [AuthService, GoogleStrategy],
+  providers: [AuthService, GoogleStrategy, JwtStrategy],
   exports: [AuthService]
 })
 export class AuthModule {}

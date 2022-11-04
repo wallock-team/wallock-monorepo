@@ -6,12 +6,14 @@ import { Request } from 'express'
 import { User } from 'src/users'
 import { EnvService } from 'src/env'
 import { UsersService } from 'src/users'
+import { forwardRef, Inject } from '@nestjs/common'
 
 function fromCookie(req: Request): string | null {
   return req.cookies?.jwt
 }
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
+    @Inject(forwardRef(() => EnvService))
     envService: EnvService,
     private readonly userService: UsersService
   ) {
