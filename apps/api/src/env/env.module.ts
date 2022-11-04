@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 
-import { EnvService, envValidation } from '.'
+import { EnvService } from './env.service'
+import { envValidation } from './env-validation'
 
 @Module({
   imports: [
-    ConfigModule,
     ConfigModule.forRoot({
       validationSchema: envValidation
     })
