@@ -1,15 +1,13 @@
 {
   "name": "dtos",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
+  "main": "index.ts",
+  "types": "index.ts",
+  "type": "module",
   "license": "ISC",
   "dependencies": {
-    "class-validator": "^0.13.2"
+    "class-validator": "^0.13.2",
+    "typescript": "^4.3.5"
   }
 }
