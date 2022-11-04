@@ -12,31 +12,13 @@ import { UsersController } from './users/users.controller'
 import { CategoriesModule } from './categories/categories.module'
 import { CategoriesController } from './categories/categories.controller'
 import { TransactionsModule } from './transactions/transactions.module'
-import { Transaction } from './transactions/entities/transaction.entity'
-import envValidation from './env/env-validation'
 @Module({
-  imports: [
-    TypeOrmModule.forRoot({
-      type: 'better-sqlite3',
-      database: ':memory:',
-      entities: [User, Category, Transaction],
-      synchronize: true
-    }),
-    ConfigModule.forRoot({
-      validationSchema: envValidation
-    }),
-    UsersModule,
-    AuthModule,
-    CategoriesModule,
-    TransactionsModule
-  ],
+  imports: [UsersModule, AuthModule, CategoriesModule, TransactionsModule],
   controllers: [
     AppController,
     AuthController,
     UsersController,
     CategoriesController
-  ],
-  providers: [AppService, UsersModule],
-  exports: [UsersModule]
+  ]
 })
 export class AppModule {}
