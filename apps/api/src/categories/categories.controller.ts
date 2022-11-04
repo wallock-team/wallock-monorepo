@@ -11,7 +11,6 @@ import {
   HttpCode,
   Query
 } from '@nestjs/common'
-import JwtAuthGuard from '../auth/jwt-auth.guard'
 import { AuthenticatedRequest } from '../commons'
 import { CategoriesService } from './categories.service'
 import { CreateCategoryDto } from './dto/create-category.dto'
@@ -22,7 +21,6 @@ export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard)
   async create(
     @Req() req: AuthenticatedRequest,
     @Body() createCategoryDto: CreateCategoryDto
@@ -31,7 +29,6 @@ export class CategoriesController {
   }
 
   @Patch(':id')
-  @UseGuards(JwtAuthGuard)
   async update(
     @Req() req: AuthenticatedRequest,
     @Param('id') id: number,
@@ -50,14 +47,12 @@ export class CategoriesController {
   }
 
   @Delete(':id')
-  @UseGuards(JwtAuthGuard)
   @HttpCode(204)
   async delete(@Req() req: AuthenticatedRequest, @Param('id') id: number) {
     await this.categoriesService.delete(req.user, id)
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
   async findAll(
     @Req() req: AuthenticatedRequest,
     @Query('includes-deleted') includesDeleted?: boolean
@@ -66,7 +61,6 @@ export class CategoriesController {
   }
 
   @Get(':id')
-  @UseGuards(JwtAuthGuard)
   async findOne(
     @Req() req: AuthenticatedRequest,
     @Param('id') categoryId: number

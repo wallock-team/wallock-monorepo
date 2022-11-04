@@ -7,9 +7,6 @@ import {
   Res,
   UseGuards
 } from '@nestjs/common'
-import JwtAuthGuard from './jwt-auth.guard'
-import GoogleOidcAuthGuard from './google-oidc-auth.guard'
-import MockOidcAuthGuard from './mock-oidc-auth.guard'
 import { Response, Request } from 'express'
 import { ConfigService } from '@nestjs/config'
 import GoogleAuthGuard from './google-auth.guard'
@@ -30,11 +27,6 @@ export default class AuthController {
     }
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('/auth/am-i-logged-in')
-  amILoggedIn(@Req() req: any) {
-    return req.user
-  }
 
   @Get('/auth/login/social-login/:issuer')
   socialLogin(
@@ -50,17 +42,4 @@ export default class AuthController {
     res.redirect(loginUrl)
   }
 
-  @UseGuards(GoogleOidcAuthGuard)
-  @Get('/auth/login-with-google')
-  _loginWithGoogle() {}
-
-  @UseGuards(MockOidcAuthGuard)
-  @Get('login-with-mock')
-  loginWithMock() {}
-
-  @Get('/auth/greet')
-  @UseGuards(JwtAuthGuard)
-  async greet(@Req() req: Request) {
-    return req.user
-  }
 }
