@@ -12,8 +12,15 @@ import { UsersController } from './users/users.controller'
 import { CategoriesModule } from './categories/categories.module'
 import { CategoriesController } from './categories/categories.controller'
 import { TransactionsModule } from './transactions/transactions.module'
+import { DbModule } from './db'
 @Module({
-  imports: [UsersModule, AuthModule, CategoriesModule, TransactionsModule],
+  imports: [
+    DbModule,
+    UsersModule,
+    AuthModule,
+    CategoriesModule,
+    TransactionsModule
+  ],
   controllers: [
     AppController,
     AuthController,
