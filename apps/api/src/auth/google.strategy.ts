@@ -1,14 +1,18 @@
-import { forwardRef, Inject } from '@nestjs/common'
-import { PassportStrategy } from '@nestjs/passport'
-import { Strategy, Profile, StrategyOptions } from 'passport-google-oauth20'
+import { forwardRef, Inject, Injectable } from '@nestjs/common'
+import { AuthGuard, PassportStrategy } from '@nestjs/passport'
+import { Profile, Strategy, StrategyOptions } from 'passport-google-oauth20'
 import { EnvService } from 'src/env'
-import { User } from 'src/users/entities/user.entity'
-import AuthService from './auth.service'
+import { AuthService } from './auth.service'
+import { OpenId } from './entities/open-id.entity'
 
-export default class GoogleStrategy extends PassportStrategy(
-  Strategy,
-  'google'
-) {
+const STRATEGY_NAME = 'google'
+
+const FailedAuth = false
+
+@Injectable()
+export class GoogleAuthGuard extends AuthGuard(STRATEGY_NAME) {}
+
+export class GoogleStrategy extends PassportStrategy(Strategy, STRATEGY_NAME) {
   constructor(
     @Inject(forwardRef(() => EnvService))
     envService: EnvService,
@@ -25,12 +29,16 @@ export default class GoogleStrategy extends PassportStrategy(
   }
 
   async validate(
-    accessToken: string,
-    // Currently, `refresh_token` will always be undefined because we don't request it
-    // This will be used later when implementing token refreshing feature
+    _accessToken: string,
     _refreshToken: string,
     profile: Profile
-  ): Promise<User | false> {
-    return await this.authService.loginOrRegisterUserFromGoogle(profile)
+  ): Promise<OpenId | typeof FailedAuth> {
+    const openId = await this.authService.loginOrSignUpFromGoogle(profile)
+
+    if (!openId) {
+      return FailedAuth
+    } else {
+      return openId
+    }
   }
 }

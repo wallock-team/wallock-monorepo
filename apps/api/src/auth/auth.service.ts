@@ -1,50 +1,37 @@
 import { Injectable } from '@nestjs/common'
-import { TokenSet } from 'openid-client'
+import { InjectRepository } from '@nestjs/typeorm'
+
+import { Repository } from 'typeorm'
 import { Profile } from 'passport-google-oauth20'
-import { User } from 'src/users/entities/user.entity'
-import { UsersService } from '../users/users.service'
+
+import { OpenId } from './entities/open-id.entity'
 
 @Injectable()
-export default class AuthService {
-  constructor(private readonly usersService: UsersService) {}
+export class AuthService {
+  constructor(
+    @InjectRepository(OpenId)
+    private readonly openidRepo: Repository<OpenId>
+  ) {}
 
-  public async loginOrRegisterUserFromGoogle(profile: Profile): Promise<User> {
-    const iss = 'https://accounts.google.com'
+  async loginOrSignUpFromGoogle(profile: Profile): Promise<OpenId | null> {
+    const openId = await this.findGoogleOpenId(profile.id)
 
-    const user = await this.usersService.findUserByIssAndSub({
-      iss,
-      sub: profile.id
-    })
-
-    if (user) {
-      return user
+    if (openId) {
+      return openId
     } else {
-      return await this.usersService.createUser({
-        iss,
-        sub: profile.id,
-        name: profile.displayName
-      })
+      return await this.createGoogleOpenId(profile.id)
     }
   }
 
-  public async getOrCreateUserFromTokenSet(tokenSet: TokenSet): Promise<User> {
-    const jwtClaims = tokenSet.claims()
+  private async findGoogleOpenId(sub: string): Promise<OpenId | null> {
+    const iss = 'https://accounts.google.com'
 
-    const user = await this.usersService.findByIssAndSub(
-      jwtClaims.iss,
-      jwtClaims.sub
-    )
+    return await this.openidRepo.findOneBy({ iss, sub })
+  }
 
-    if (user) {
-      return user
-    } else {
-      const newlyCreatedUser = await this.usersService.create({
-        iss: jwtClaims.iss,
-        sub: jwtClaims.sub,
-        name: jwtClaims.name
-      })
-
-      return newlyCreatedUser
-    }
+  private async createGoogleOpenId(sub: string): Promise<OpenId> {
+    const iss = 'https://accounts.google.com'
+    await this.openidRepo.insert({ iss, sub })
+    return await this.findGoogleOpenId(sub)
   }
 }
