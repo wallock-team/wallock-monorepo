@@ -12,6 +12,12 @@ export class UsersService {
     private usersRepository: Repository<User>
   ) {}
 
+  async getUserById(id: number): Promise<User | null> {
+    return await this.usersRepository.findOneBy({
+      id
+    })
+  }
+
   async findOne(opts?: FindOneOptions) {
     let user = await this.usersRepository.findOne(opts)
     if (user) {
