@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { EnvModule, EnvService } from 'src/env'
 import { User } from 'src/users/entities/user.entity'
+import { OpenId } from 'src/auth'
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { User } from 'src/users/entities/user.entity'
             type: 'better-sqlite3',
             database: ':memory:',
             synchronize: true,
-            entities: [User]
+            entities: [OpenId, User]
           }
         }
       }

@@ -1,8 +1,9 @@
-import { BaseEntity, Column, Entity, Unique } from 'typeorm'
+import { Column, Entity, Unique } from 'typeorm'
+import { BaseEntity } from '../../common/base.entity'
 
 @Entity()
 @Unique('Unique Open ID', ['iss', 'sub'])
-export default class OpenId extends BaseEntity {
+export class OpenId extends BaseEntity {
   @Column()
   iss: string
 
