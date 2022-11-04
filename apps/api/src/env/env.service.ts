@@ -13,6 +13,8 @@ export class EnvService {
         clientSecret: configService.get('OIDC_GOOGLE_CLIENT_SECRET')
       }
     }
+
+    this.jwtSecret = configService.get('JWT_SECRET')
   }
 
   public readonly env: string
@@ -22,6 +24,8 @@ export class EnvService {
   public readonly oidc: {
     google: OpenIdProviderSetting
   }
+
+  public readonly jwtSecret: string
 }
 
 type OpenIdProviderSetting = {

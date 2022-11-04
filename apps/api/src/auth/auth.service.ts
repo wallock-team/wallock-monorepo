@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { JwtService } from '@nestjs/jwt'
 
 import { Repository } from 'typeorm'
 import { Profile } from 'passport-google-oauth20'
@@ -10,7 +11,8 @@ import { User } from 'src/users'
 export class AuthService {
   constructor(
     @InjectRepository(User)
-    private readonly userRepo: Repository<User>
+    private readonly userRepo: Repository<User>,
+    jwtService: JwtService
   ) {}
 
   async loginOrSignUpFromGoogle(profile: Profile): Promise<User | null> {

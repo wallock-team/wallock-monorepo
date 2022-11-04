@@ -19,6 +19,7 @@
     "ENV",
     "OIDC_GOOGLE_CLIENT_ID",
     "OIDC_GOOGLE_CLIENT_SECRET",
-    "API_URL"
+    "API_URL",
+    "JWT_SECRET"
   ]
 }
