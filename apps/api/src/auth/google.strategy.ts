@@ -1,7 +1,7 @@
 import { forwardRef, Inject } from '@nestjs/common'
 import { PassportStrategy } from '@nestjs/passport'
 import { Strategy, Profile, StrategyOptions } from 'passport-google-oauth20'
-import EnvService from 'src/env/env.service'
+import { EnvService } from 'src/env'
 import { User } from 'src/users/entities/user.entity'
 import AuthService from './auth.service'
 
