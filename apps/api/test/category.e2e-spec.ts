@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { INestApplication, ValidationPipe } from '@nestjs/common'
 import * as request from 'supertest'
-import { AppModule } from './../src/app.module'
+import { AppModule } from '../src/app.module'
 
 const SECONDS = 1000
 jest.setTimeout(70 * SECONDS)
@@ -123,5 +123,3 @@ describe('Test usersModule', () => {
       .expect(400)
   })
 })
-
-
