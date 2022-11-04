@@ -12,16 +12,27 @@ export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly userRepo: Repository<User>,
-    jwtService: JwtService
+    private readonly jwtService: JwtService
   ) {}
 
-  async loginOrSignUpFromGoogle(profile: Profile): Promise<User | null> {
-    const openId = await this.findGoogleOpenId(profile.id)
+  async loginOrSignUpFromGoogle(
+    profile: Profile
+  ): Promise<{ user: User; jwt: string }> {
+    let user = await this.findGoogleOpenId(profile.id)
 
-    if (openId) {
-      return openId
-    } else {
-      return await this.createGoogleOpenId(profile)
+    if (!user) {
+      user = await this.createGoogleOpenId(profile)
+    }
+
+    const jwtPayload = {
+      sub: user.id
+    }
+
+    const jwt = await this.jwtService.signAsync(jwtPayload)
+
+    return {
+      user,
+      jwt
     }
   }
 

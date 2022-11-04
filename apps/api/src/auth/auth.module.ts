@@ -10,7 +10,7 @@ import AuthController from './auth.controller'
 import { AuthService } from './auth.service'
 import { GoogleStrategy } from './google.strategy'
 
-const TWO_HOURS = 2 * 60 * 60 * 1000
+const ONE_HOUR = 3600
 
 @Module({
   imports: [
@@ -22,7 +22,7 @@ const TWO_HOURS = 2 * 60 * 60 * 1000
       inject: [EnvService],
       useFactory: async (envService: EnvService) => ({
         secret: envService.jwtSecret,
-        signOptions: { expiresIn: TWO_HOURS }
+        signOptions: { expiresIn: ONE_HOUR }
       })
     })
   ],
