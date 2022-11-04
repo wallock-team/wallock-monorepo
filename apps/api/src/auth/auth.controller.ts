@@ -1,26 +1,16 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Query,
-  Req,
-  Res,
-  UseGuards
-} from '@nestjs/common'
-import { Response, Request } from 'express'
-import { ConfigService } from '@nestjs/config'
-import GoogleAuthGuard from './google-auth.guard'
-import { AuthenticatedRequest } from '../commons'
+import { Controller, Get, Req, UseGuards } from '@nestjs/common'
+import { GoogleAuthGuard } from './google-auth.guard'
+import { AuthenticatedRequest } from 'src/commons'
 import { RestResponse } from 'dtos'
-import { OpenId } from './entities/open-id.entity'
+import { User } from 'src/users'
 
 @Controller()
 export default class AuthController {
   @UseGuards(GoogleAuthGuard)
   @Get('/login-with-google')
-  loginWithGoogle(@Req() req: AuthenticatedRequest): RestResponse<OpenId> {
+  loginWithGoogle(@Req() req: AuthenticatedRequest): RestResponse<User> {
     return {
-      message: ' Logged in successfully with Google',
+      message: 'Logged in successfully with Google',
       data: req.user
     }
   }

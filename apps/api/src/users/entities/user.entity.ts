@@ -2,7 +2,7 @@ import { BaseEntity } from '../../common/base.entity'
 import { Column, Entity, Unique } from 'typeorm'
 
 @Entity()
-@Unique(['iss', 'sub'])
+@Unique('Unique Open ID', ['iss', 'sub'])
 export class User extends BaseEntity {
   @Column()
   iss: string
@@ -13,11 +13,17 @@ export class User extends BaseEntity {
   @Column({
     nullable: true
   })
-  name?: string
+  firstName?: string
 
-  @Column({ nullable: true })
-  picture?: string
+  @Column({
+    nullable: true
+  })
+  lastName?: string
 
   @Column({ default: 0 })
   balance: number
+
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`
+  }
 }

@@ -10,7 +10,7 @@ describe('AuthService', () => {
   })
 
   describe('loginOrSignUpFromGoogle', () => {
-    it('returns the existing OpenId when `subject` exists in db', async () => {
+    it('returns the existing User when `sub` exists in db', async () => {
       jest.spyOn(prototype, 'findGoogleOpenId').mockImplementation(() => ({}))
 
       const createGoogleOpenId = jest
@@ -23,7 +23,7 @@ describe('AuthService', () => {
       expect(createGoogleOpenId).toBeCalledTimes(0)
     })
 
-    it('returns a new OpenId when `subject` doesnt exists in db', async () => {
+    it('returns a new User when `sub` doesnt exists in db', async () => {
       jest.spyOn(prototype, 'findGoogleOpenId').mockImplementation(() => null)
 
       const createGoogleOpenId = jest

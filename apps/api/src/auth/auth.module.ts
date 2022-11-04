@@ -5,9 +5,9 @@ import { AuthService } from './auth.service'
 import { EnvModule } from 'src/env/env.module'
 import { GoogleStrategy } from './google.strategy'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { OpenId } from './entities/open-id.entity'
+import { User } from 'src/users'
 @Module({
-  imports: [PassportModule, EnvModule, TypeOrmModule.forFeature([OpenId])],
+  imports: [PassportModule, EnvModule, TypeOrmModule.forFeature([User])],
   controllers: [AuthController],
   providers: [AuthService, GoogleStrategy],
   exports: [AuthService]

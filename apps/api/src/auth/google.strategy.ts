@@ -2,8 +2,8 @@ import { forwardRef, Inject, Injectable } from '@nestjs/common'
 import { AuthGuard, PassportStrategy } from '@nestjs/passport'
 import { Profile, Strategy, StrategyOptions } from 'passport-google-oauth20'
 import { EnvService } from 'src/env'
+import { User } from 'src/users'
 import { AuthService } from './auth.service'
-import { OpenId } from './entities/open-id.entity'
 
 const STRATEGY_NAME = 'google'
 
@@ -32,13 +32,13 @@ export class GoogleStrategy extends PassportStrategy(Strategy, STRATEGY_NAME) {
     _accessToken: string,
     _refreshToken: string,
     profile: Profile
-  ): Promise<OpenId | typeof FailedAuth> {
-    const openId = await this.authService.loginOrSignUpFromGoogle(profile)
+  ): Promise<User | typeof FailedAuth> {
+    const user = await this.authService.loginOrSignUpFromGoogle(profile)
 
-    if (!openId) {
+    if (!user) {
       return FailedAuth
     } else {
-      return openId
+      return user
     }
   }
 }
