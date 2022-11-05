@@ -17,7 +17,7 @@ describe('AuthService', () => {
   })
 
   describe('loginOrSignUpFromGoogle', () => {
-    it('returns the existing User when `sub` exists in db', async () => {
+    it('returns the existing User and a JWT when `sub` exists in db', async () => {
       const EXISTING_USER = {}
       methods.findGoogleOpenId.mockImplementation(() => EXISTING_USER)
 
@@ -31,7 +31,7 @@ describe('AuthService', () => {
       expect(methods.createGoogleOpenId).not.toBeCalled()
     })
 
-    it('returns a new User when `sub` doesnt exists in db', async () => {
+    it('returns a new User and a JWT when `sub` doesnt exists in db', async () => {
       const USER_NOT_EXIST: null = null
       methods.findGoogleOpenId.mockImplementation(() => USER_NOT_EXIST)
 
