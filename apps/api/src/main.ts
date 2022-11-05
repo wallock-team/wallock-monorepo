@@ -1,4 +1,4 @@
-import { NestFactory } from '@nestjs/core'
+import { NestFactory, Reflector } from '@nestjs/core'
 
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
@@ -27,6 +27,8 @@ async function bootstrap() {
     }
   })
 
+  const globalAuthGuard = new JwtAuthGuard(app.get(Reflector))
+
   const corsSettings = {
     credentials: true,
     origin: [env.webUrl]
@@ -35,7 +37,7 @@ async function bootstrap() {
   app
     .use(cookieMiddleware)
     .use(sessionMiddleware)
-    .useGlobalGuards(new JwtAuthGuard())
+    .useGlobalGuards(globalAuthGuard)
     .enableCors(corsSettings)
 
   await app.listen(3000)

@@ -11,7 +11,6 @@ export class UsersController {
   constructor() {}
 
   @Get('/me')
-  @UseGuards(JwtAuthGuard)
   getProfile(@Req() req: AuthenticatedRequest): RestResponse<ReadUserDto> {
     return {
       message: 'Get your profile successfully',
