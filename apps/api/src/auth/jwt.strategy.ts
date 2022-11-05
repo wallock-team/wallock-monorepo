@@ -19,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([fromCookie]),
-      secretOrKey: envService.jwtSecret
+      secretOrKey: envService.env.secrets.jwt
     })
   }
 

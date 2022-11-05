@@ -20,10 +20,10 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     private readonly authService: AuthService
   ) {
     const strategyOpts: StrategyOptionsWithRequest = {
-      clientID: envService.oidc.google.clientId,
-      clientSecret: envService.oidc.google.clientSecret,
+      clientID: envService.env.oidc.google.id,
+      clientSecret: envService.env.oidc.google.secret,
       scope: ['openid', 'profile'],
-      callbackURL: `${envService.baseUrl}/login-with-google`,
+      callbackURL: `${envService.env.baseUrl}/login-with-google`,
       passReqToCallback: true
     }
 

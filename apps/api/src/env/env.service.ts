@@ -1,34 +1,72 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 
+import Joi, * as joi from 'joi'
+
+export const envValidation = joi.object({
+  ENV: joi.string().valid('dev', 'prod').required(),
+
+  API_URL: joi.when('ENV', {
+    is: 'dev',
+    then: joi.string().optional().default('localhost:3000'),
+    otherwise: joi.string().required()
+  }),
+
+  OIDC_GOOGLE_CLIENT_ID: joi.string().required(),
+  OIDC_GOOGLE_CLIENT_SECRET: joi.string().required(),
+
+  SECRET_JWT: joi.when('ENV', {
+    is: 'dev',
+    then: joi.string().default('Hello world!'),
+    otherwise: joi.string().required()
+  }),
+
+  SECRET_SESSION: joi.when('ENV', {
+    is: 'dev',
+    then: joi.string().default('Hello world!'),
+    otherwise: joi.string().required()
+  }),
+
+  SECRET_COOKIE: joi.when('ENV', {
+    is: 'dev',
+    then: joi.string().default('Hello world!'),
+    otherwise: joi.string().required()
+  })
+})
+
 @Injectable()
 export class EnvService {
-  constructor(configService: ConfigService) {
-    this.env = configService.get('ENV')
-    this.baseUrl = configService.get('API_URL')
-    this.oidc
-    this.oidc = {
-      google: {
-        clientId: configService.get('OIDC_GOOGLE_CLIENT_ID'),
-        clientSecret: configService.get('OIDC_GOOGLE_CLIENT_SECRET')
+  constructor(cfg: ConfigService) {
+    this.env = {
+      env: cfg.get('ENV'),
+      baseUrl: cfg.get('API_URL'),
+      oidc: {
+        google: {
+          id: cfg.get('OIDC_GOOGLE_CLIENT_ID'),
+          secret: cfg.get('OIDC_GOOGLE_CLIENT_SECRET')
+        }
+      },
+      secrets: {
+        jwt: cfg.get('SECRET_JWT'),
+        cookie: cfg.get('SECRET_COOKIE'),
+        session: cfg.get('SECRET_SESSION')
       }
     }
-
-    this.jwtSecret = configService.get('JWT_SECRET')
   }
 
-  public readonly env: string
-
-  public readonly baseUrl: string
-
-  public readonly oidc: {
-    google: OpenIdProviderSetting
+  public readonly env: {
+    env: 'dev' | 'prod'
+    baseUrl: string
+    oidc: {
+      google: {
+        id: string
+        secret: string
+      }
+    }
+    secrets: {
+      jwt?: string
+      cookie?: string
+      session?: string
+    }
   }
-
-  public readonly jwtSecret: string
-}
-
-type OpenIdProviderSetting = {
-  clientId: string
-  clientSecret: string
 }

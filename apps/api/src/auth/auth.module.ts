@@ -24,7 +24,7 @@ const ONE_HOUR = 3600
       imports: [EnvModule],
       inject: [EnvService],
       useFactory: async (envService: EnvService) => ({
-        secret: envService.jwtSecret,
+        secret: envService.env.secrets.jwt,
         signOptions: { expiresIn: ONE_HOUR }
       })
     })

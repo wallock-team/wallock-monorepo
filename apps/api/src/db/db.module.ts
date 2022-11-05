@@ -10,7 +10,7 @@ import { User } from 'src/users'
       imports: [EnvModule],
       inject: [EnvService],
       useFactory: async function (envService: EnvService) {
-        if (envService.env === 'dev') {
+        if (envService.env.env === 'dev') {
           return {
             type: 'better-sqlite3',
             database: ':memory:',
