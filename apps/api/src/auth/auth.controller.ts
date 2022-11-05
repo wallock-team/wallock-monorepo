@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common'
+import { Controller, Post, Req, UseGuards } from '@nestjs/common'
 
 import { omit } from 'lodash'
 
@@ -11,7 +11,7 @@ import { GoogleAuthGuard } from './google-auth.guard'
 
 @Controller()
 export default class AuthController {
-  @Get('/login-with-google')
+  @Post('/login-with-google')
   @Public()
   @UseGuards(GoogleAuthGuard)
   loginWithGoogle(@Req() req: AuthenticatedRequest): RestResponse<ReadUserDto> {
