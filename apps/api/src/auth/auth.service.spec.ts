@@ -1,39 +1,50 @@
 import { Profile } from 'passport-google-oauth20'
 import { AuthService } from './auth.service'
 
-const service = new AuthService(null)
+const service = new AuthService(null, null)
 const prototype = Object.getPrototypeOf(service)
-
+let methods: any
 describe('AuthService', () => {
+  beforeEach(() => {
+    methods = {
+      findGoogleOpenId: jest.spyOn(prototype, 'findGoogleOpenId'),
+      createGoogleOpenId: jest.spyOn(prototype, 'createGoogleOpenId'),
+      signJwt: jest.spyOn(prototype, 'signJwt')
+    }
+  })
   afterEach(() => {
     jest.restoreAllMocks()
   })
 
   describe('loginOrSignUpFromGoogle', () => {
     it('returns the existing User when `sub` exists in db', async () => {
-      jest.spyOn(prototype, 'findGoogleOpenId').mockImplementation(() => ({}))
+      const EXISTING_USER = {}
+      methods.findGoogleOpenId.mockImplementation(() => EXISTING_USER)
 
-      const createGoogleOpenId = jest
-        .spyOn(prototype, 'createGoogleOpenId')
-        .mockImplementation(() => ({}))
+      const SIGNED_JWT = 'Signed JWT'
+      methods.signJwt.mockImplementation(() => SIGNED_JWT)
 
       const returned = await service.loginOrSignUpFromGoogle({} as Profile)
 
-      expect(returned).toBeDefined()
-      expect(createGoogleOpenId).toBeCalledTimes(0)
+      expect(returned.user).toBe(EXISTING_USER)
+      expect(returned.jwt).toBe(SIGNED_JWT)
+      expect(methods.createGoogleOpenId).not.toBeCalled()
     })
 
     it('returns a new User when `sub` doesnt exists in db', async () => {
-      jest.spyOn(prototype, 'findGoogleOpenId').mockImplementation(() => null)
+      const USER_NOT_EXIST: null = null
+      methods.findGoogleOpenId.mockImplementation(() => USER_NOT_EXIST)
 
-      const createGoogleOpenId = jest
-        .spyOn(prototype, 'createGoogleOpenId')
-        .mockImplementation(() => ({}))
+      const NEWLY_CREATED_USER = {}
+      methods.createGoogleOpenId.mockImplementation(() => NEWLY_CREATED_USER)
+
+      const SIGNED_JWT = 'Signed JWT'
+      methods.signJwt.mockImplementation(() => SIGNED_JWT)
 
       const returned = await service.loginOrSignUpFromGoogle({} as Profile)
 
-      expect(returned).toBeDefined()
-      expect(createGoogleOpenId).toBeCalledTimes(1)
+      expect(returned.user).toBe(NEWLY_CREATED_USER)
+      expect(returned.jwt).toBe(SIGNED_JWT)
     })
   })
 })

@@ -28,12 +28,16 @@ export class AuthService {
       sub: user.id
     }
 
-    const jwt = await this.jwtService.signAsync(jwtPayload)
+    const jwt = await this.signJwt(jwtPayload)
 
     return {
       user,
       jwt
     }
+  }
+
+  private async signJwt(jwtPayload: any) {
+    return await this.jwtService.signAsync(jwtPayload)
   }
 
   private async findGoogleOpenId(sub: string): Promise<User | null> {
