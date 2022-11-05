@@ -12,6 +12,12 @@ export const envValidation = joi.object({
     otherwise: joi.string().required()
   }),
 
+  WEB_URL: Joi.when('ENV', {
+    is: 'dev',
+    then: joi.string().optional().default('localhost:3001'),
+    otherwise: joi.string().required()
+  }),
+
   OIDC_GOOGLE_CLIENT_ID: joi.string().required(),
   OIDC_GOOGLE_CLIENT_SECRET: joi.string().required(),
 
@@ -40,6 +46,7 @@ export class EnvService {
     this.env = {
       env: cfg.get('ENV'),
       baseUrl: cfg.get('API_URL'),
+      webUrl: cfg.get('WEB_URL'),
       oidc: {
         google: {
           id: cfg.get('OIDC_GOOGLE_CLIENT_ID'),
@@ -57,6 +64,7 @@ export class EnvService {
   public readonly env: {
     env: 'dev' | 'prod'
     baseUrl: string
+    webUrl: string
     oidc: {
       google: {
         id: string
