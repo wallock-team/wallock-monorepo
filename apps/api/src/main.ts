@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 import session from 'express-session'
 
 import { AppModule } from './app.module'
+import { JwtAuthGuard } from './auth/jwt-auth.guard'
 import { EnvService } from './env'
 
 async function bootstrap() {
@@ -31,7 +32,11 @@ async function bootstrap() {
     origin: [env.webUrl]
   }
 
-  app.use(cookieMiddleware).use(sessionMiddleware).enableCors(corsSettings)
+  app
+    .use(cookieMiddleware)
+    .use(sessionMiddleware)
+    .useGlobalGuards(new JwtAuthGuard())
+    .enableCors(corsSettings)
 
   await app.listen(3000)
 }
