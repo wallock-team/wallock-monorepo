@@ -1,6 +1,5 @@
 {
   "display": "Data Transfer Objects",
   "extends": "../ts-config/base.json",
-  "compilerOptions": {
-  }
+  "compilerOptions": {}
 }

@@ -1,12 +1,25 @@
-import { Controller, Get, Patch, Post } from '@nestjs/common'
+import { Body, Controller, Get, Patch, Post, Query, Req } from '@nestjs/common'
+import { CreateWalletDto, RestResponse, UpdateWalletDto } from 'dtos'
+import { AuthenticatedRequest } from 'src/commons'
 
 @Controller()
 export class WalletsController {
   @Post()
-  createWallet() {}
+  createWallet(
+    @Req() req: AuthenticatedRequest,
+    @Body() dto: CreateWalletDto
+  ) {}
 
   @Patch(':id')
-  updateWallet() {}
+  updateWallet(
+    @Req() req: AuthenticatedRequest,
+    @Query('id') walletId: number,
+    @Body() dto: UpdateWalletDto
+  ): RestResponse<UpdateWalletDto> {
+    return {
+      message: ''
+    }
+  }
 
   @Get()
   getAllWallets() {}

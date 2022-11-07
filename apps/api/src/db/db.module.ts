@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { EnvModule, EnvService } from 'src/env'
 import { User } from 'src/users'
+import { Wallet } from 'src/wallets'
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { User } from 'src/users'
             type: 'better-sqlite3',
             database: ':memory:',
             synchronize: true,
-            entities: [User]
+            entities: [User, Wallet]
           }
         }
       }
