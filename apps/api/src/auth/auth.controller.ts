@@ -1,7 +1,6 @@
-import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common'
+import { Controller, Get, Req, UseGuards } from '@nestjs/common'
 
 import { omit } from 'lodash'
-import { Response } from 'express'
 
 import { ReadUserDto, RestResponse } from 'dtos'
 
@@ -15,21 +14,10 @@ export default class AuthController {
   @Get('/login-with-google')
   @Public()
   @UseGuards(GoogleAuthGuard)
-  loginWithGoogle(
-    @Req() req: AuthenticatedRequest,
-    @Res() res: Response
-  ): RestResponse<ReadUserDto> {
-    const dataToReturn = {
+  loginWithGoogle(@Req() req: AuthenticatedRequest): RestResponse<ReadUserDto> {
+    return {
       message: `Logged in successfully with Google! Welcome back, ${req.user.fullName}!`,
       data: omit(req.user, 'deletedAt', 'version')
     }
-
-    if (req.cookies.succes_url) {
-      const succesUrl = req.cookies.succes_url
-      res.clearCookie('succes_url')
-      res.redirect(succesUrl)
-    }
-
-    return dataToReturn
   }
 }

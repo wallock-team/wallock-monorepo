@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { PassportModule } from '@nestjs/passport'
 import { JwtModule } from '@nestjs/jwt'
 import { TypeOrmModule } from '@nestjs/typeorm'
@@ -11,7 +11,6 @@ import { AuthService } from './auth.service'
 import { GoogleStrategy } from './google.strategy'
 import { JwtStrategy } from './jwt.strategy'
 import { UsersModule } from 'src/users'
-import { GoogleSuccesUrlMiddleware } from './google-success-url.middleware'
 
 const ONE_HOUR = 3600
 
@@ -34,8 +33,4 @@ const ONE_HOUR = 3600
   providers: [AuthService, GoogleStrategy, JwtStrategy],
   exports: [AuthService]
 })
-export class AuthModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(GoogleSuccesUrlMiddleware).forRoutes('/login-with-google')
-  }
-}
+export class AuthModule {}
