@@ -5,6 +5,7 @@ import { CategoriesModule } from './categories/categories.module'
 import { TransactionsModule } from './transactions/transactions.module'
 import { DbModule } from './db'
 import { WalletsModule } from './wallets/wallets.module'
+import { AppController } from './app.controller'
 @Module({
   imports: [
     DbModule,
@@ -13,6 +14,7 @@ import { WalletsModule } from './wallets/wallets.module'
     CategoriesModule,
     TransactionsModule,
     WalletsModule
-  ]
+  ],
+  controllers: [AppController]
 })
 export class AppModule {}
