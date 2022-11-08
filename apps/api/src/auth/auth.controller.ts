@@ -1,9 +1,5 @@
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common'
 
-import { omit } from 'lodash'
-
-import { ReadUserDto, RestResponse } from 'dtos'
-
 import { AuthenticatedRequest } from 'src/commons'
 import { Public } from 'src/common/public-url'
 
