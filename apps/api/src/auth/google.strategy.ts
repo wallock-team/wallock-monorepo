@@ -24,6 +24,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       clientSecret: envService.env.oidc.google.secret,
       scope: ['openid', 'profile'],
       callbackURL: `${envService.env.baseUrl}/login-with-google`,
+      state: true,
       passReqToCallback: true
     }
 
