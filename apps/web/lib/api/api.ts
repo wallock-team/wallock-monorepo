@@ -1,4 +1,5 @@
 import axios from 'axios'
+import config from '../config'
 import CategoriesApi from './categories-api'
 import TransactionsApi from './transactions-api'
 
@@ -13,8 +14,8 @@ export default class Api {
 
   public constructor(private readonly context?: any) {
     const configuredAxios = axios.create({
-      baseURL: 'http://localhost:3000',
-      withCredentials: true,
+      baseURL: config.apiUrl,
+      withCredentials: true
     })
 
     if (this.context) {
@@ -24,6 +25,10 @@ export default class Api {
     }
     this.transactions = new TransactionsApi(configuredAxios)
     this.categories = new CategoriesApi(configuredAxios)
+  }
+
+  public get loginWithGoogleUrl() {
+    return `${config.apiUrl}/login-with-google?success_url=${config.baseUrl}/transactions`
   }
 
   public readonly transactions: TransactionsApi
