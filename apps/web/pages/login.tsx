@@ -1,32 +1,11 @@
-import { ReactNode } from 'react'
 import { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
-import {
-  Box,
-  Button,
-  Container,
-  Divider,
-  TextField,
-  Typography
-} from '@mui/material'
+import { Box, Button, Container, Divider, TextField } from '@mui/material'
 import GoogleIcon from '@mui/icons-material/Google'
 import Image from 'next/image'
 import logoSvg from 'public/branding/logo.svg'
 import Api from '../lib/api/api'
 
-export const getStaticProps: GetStaticProps = async () => {
-  return {
-    props: {
-      baseUrl: process.env.WEB_URL,
-      backendBaseUrl: process.env.API_URL
-    }
-  }
-}
-
-const Login: NextPage = ({
-  baseUrl,
-  backendBaseUrl
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const api = Api.fromWeb()
+const Login: NextPage = () => {
   return (
     <>
       <Container maxWidth="sm" sx={{ mt: '10vh' }}>
@@ -61,7 +40,7 @@ const Login: NextPage = ({
   )
 
   function redirectToGoogleLogin() {
-    window.location.href = api.loginWithGoogleUrl
+    window.location.href = `${process.env.url.api}/login-with-google?success_url=${process.env.url.web}/transactions`
   }
 }
 

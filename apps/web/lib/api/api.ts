@@ -28,7 +28,7 @@ export default class Api {
   }
 
   public get loginWithGoogleUrl() {
-    return `${config.apiUrl}/login-with-google?success_url=${config.baseUrl}/transactions`
+    return `${process.env.API_URL}/login-with-google?success_url=${process.env.WEB_URL}/transactions`
   }
 
   public readonly transactions: TransactionsApi

@@ -15,5 +15,6 @@
       "cache": false
     }
   },
-  "globalDependencies": ["$WEB_URL", "$API_URL"]
+  "globalDependencies": [".env"],
+  "globalEnv": ["WEB_URL", "API_URL"]
 }
