@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <link rel='icon' href='/public/favicon/favicon.ico' />
+        <link rel="icon" href="/public/favicon/favicon.ico" />
       </Head>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <CssBaseline />

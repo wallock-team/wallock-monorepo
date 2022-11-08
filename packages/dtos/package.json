@@ -1,0 +1,13 @@
+{
+  "name": "dtos",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.ts",
+  "types": "index.ts",
+  "type": "module",
+  "license": "ISC",
+  "dependencies": {
+    "class-validator": "^0.13.2",
+    "typescript": "^4.3.5"
+  }
+}

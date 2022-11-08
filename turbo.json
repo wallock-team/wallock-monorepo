@@ -8,8 +8,13 @@
     "lint": {
       "outputs": []
     },
+    "test": {
+      "outputs": []
+    },
     "dev": {
       "cache": false
     }
-  }
+  },
+  "globalDependencies": [".env"],
+  "globalEnv": ["WEB_URL", "API_URL"]
 }

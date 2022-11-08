@@ -13,8 +13,8 @@ export default class Api {
 
   public constructor(private readonly context?: any) {
     const configuredAxios = axios.create({
-      baseURL: 'http://localhost:3000',
-      withCredentials: true,
+      baseURL: process.env.apiUrl,
+      withCredentials: true
     })
 
     if (this.context) {
@@ -24,6 +24,10 @@ export default class Api {
     }
     this.transactions = new TransactionsApi(configuredAxios)
     this.categories = new CategoriesApi(configuredAxios)
+  }
+
+  public get loginWithGoogleUrl() {
+    return `${process.env.API_URL}/login-with-google?success_url=${process.env.WEB_URL}/transactions`
   }
 
   public readonly transactions: TransactionsApi
