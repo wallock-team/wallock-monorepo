@@ -2,7 +2,7 @@ import axios from './config-axios'
 import {
   GetServerSideProps,
   PreviewData,
-  GetServerSidePropsContext,
+  GetServerSidePropsContext
 } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 
@@ -16,29 +16,27 @@ const withAuthPage = <
   getServerSideProps?: GetServerSideProps<P, Q, D>
 ) => {
   return async function (context: GetServerSidePropsContext<Q, D>) {
-    const amILoggedInResponse = await axios.get('/auth/am-i-logged-in', {
+    const authenticated = await axios.get('/me', {
       headers: {
-        cookie: String(context.req.headers.cookie),
-      },
+        cookie: String(context.req.headers.cookie)
+      }
     })
-    if (amILoggedInResponse.status === 200) {
+    if (authenticated.status === 200) {
       return getServerSideProps
         ? {
-            ...(await getServerSideProps(context)),
-            
-            
+            ...(await getServerSideProps(context))
           }
         : {
             props: {
-              user: amILoggedInResponse.data,
-            },
+              user: authenticated.data
+            }
           }
     } else {
       return {
         redirect: {
           destination: '/login',
-          permanent: false,
-        },
+          permanent: false
+        }
       }
     }
   }
