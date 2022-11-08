@@ -40,7 +40,7 @@ const Login: NextPage = () => {
   )
 
   function redirectToGoogleLogin() {
-    window.location.href = `${process.env.url.api}/login-with-google?success_url=${process.env.url.web}/transactions`
+    window.location.href = `${process.env.apiUrl}/login-with-google?success_url=${process.env.webUrl}/transactions`
   }
 }
 

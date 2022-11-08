@@ -1,5 +1,4 @@
 import axios from 'axios'
-import config from '../config'
 import CategoriesApi from './categories-api'
 import TransactionsApi from './transactions-api'
 
@@ -14,7 +13,7 @@ export default class Api {
 
   public constructor(private readonly context?: any) {
     const configuredAxios = axios.create({
-      baseURL: config.apiUrl,
+      baseURL: process.env.apiUrl,
       withCredentials: true
     })
 
