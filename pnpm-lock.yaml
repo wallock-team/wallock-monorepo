@@ -179,11 +179,11 @@ importers:
 
   packages/dtos:
     specifiers:
+      class-validator: ^0.13.2
       typescript: ^4.3.5
-      yup: ^0.32.11
     dependencies:
+      class-validator: 0.13.2
       typescript: 4.8.4
-      yup: 0.32.11
 
   packages/eslint-config-custom:
     specifiers:
