@@ -23,7 +23,7 @@ export const getServerSideProps = withAuthPage<Props>(async context => {
 
   return {
     props: {
-      categories: await api.categories.getAll()
+      categories: await api.categories.getAllTransactions()
     }
   }
 })

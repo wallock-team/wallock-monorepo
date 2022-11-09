@@ -11,13 +11,21 @@ import { User } from '../users/entities/user.entity'
 export class TransactionsService {
   constructor(
     @InjectRepository(Transaction)
-    private transactionRepository: Repository<Transaction>,
+    private transactionsRepo: Repository<Transaction>,
     private userService: UsersService,
     private cateService: CategoriesService
   ) {}
 
+  async getAllTransactions(user: User) {
+    return await this.transactionsRepo.findBy({
+      user: {
+        id: user.id
+      }
+    })
+  }
+
   async find(options?: FindManyOptions<Transaction>) {
-    return await this.transactionRepository.find(options)
+    return await this.transactionsRepo.find(options)
   }
 
   async findAllByUserId(user: User, includesDeleted?: boolean) {
@@ -31,7 +39,7 @@ export class TransactionsService {
       throw new NotFoundException('Can not find user')
     }
 
-    return await this.transactionRepository.find({
+    return await this.transactionsRepo.find({
       relations: {
         category: true
       },
@@ -45,7 +53,7 @@ export class TransactionsService {
   }
 
   async findByIdForUser(user: User, id: number): Promise<Transaction> {
-    let transaction = await this.transactionRepository.findOne({
+    let transaction = await this.transactionsRepo.findOne({
       relations: {
         category: true
       },

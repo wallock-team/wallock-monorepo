@@ -1,7 +1,14 @@
 import { Axios } from 'axios'
+import { ReadTransactionDto } from 'dtos'
 
 export default class TransactionsApi {
   public constructor(private readonly configuredAxios: Axios) {}
+
+  async getAllTransactions() {
+    return (
+      await this.configuredAxios.get<ReadTransactionDto[]>('/transactions')
+    ).data
+  }
 
   async getCurrentMonth() {
     return await this.configuredAxios.get('/transactions/current-month')
@@ -14,7 +21,7 @@ export default class TransactionsApi {
       amount: 0,
       date: new Date(),
       note: '',
-      cateId: 1,
+      cateId: 1
     }
   }
   async add(transaction: any) {

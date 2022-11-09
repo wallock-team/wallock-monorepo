@@ -8,3 +8,5 @@ export * from './wallets/read-wallet.dto'
 export * from './categories/category-type'
 export * from './categories/create-category.dto'
 export * from './categories/read-category.dto'
+
+export * from './transactions/read-transaction.dto'

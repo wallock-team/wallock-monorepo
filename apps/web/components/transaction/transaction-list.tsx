@@ -4,23 +4,17 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Typography,
+  Typography
 } from '@mui/material'
 import { Work } from '@mui/icons-material'
 import { useRouter } from 'next/router'
+import { ReadTransactionDto } from 'dtos'
 
-type Transaction = {
-  id: number
-  amount: number
-  categories: {
-    name: string
-    isExpense: boolean
-  }
-  timestamp: Date
-  note?: string
+type Props = {
+  transactions: ReadTransactionDto[]
 }
 
-const TransactionList = (props: any) => {
+const TransactionList = (props: Props) => {
   const router = useRouter()
   function handleOnClick(id: number): void {
     router.push(`transactions/${id}`)
@@ -30,14 +24,9 @@ const TransactionList = (props: any) => {
       {props.transactions.map((t: any) => (
         <ListItem
           key={t.id}
-          secondaryAction={<Typography variant='body1'>{t.amount}</Typography>}
+          secondaryAction={<Typography variant="body1">{t.amount}</Typography>}
           onClick={() => handleOnClick(t.id)}
         >
-          <ListItemAvatar>
-            <Avatar>
-              <Work />
-            </Avatar>
-          </ListItemAvatar>
           <ListItemText primary={t.category.name} secondary={t.note} />
         </ListItem>
       ))}
