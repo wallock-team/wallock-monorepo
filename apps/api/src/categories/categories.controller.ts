@@ -29,6 +29,14 @@ export class CategoriesController {
     }
   }
 
+  @Get()
+  async getAllCategories(@Req() req: AuthenticatedRequest): Promise<RestResponse<ReadCategoryDto[]>> {
+    return {
+      message: 'Got all categories successfully',
+      data: await this.categoriesService.getAllCategories(req.user)
+    }
+  }
+
   @Get(':id')
   async findOne(
     @Req() req: AuthenticatedRequest,

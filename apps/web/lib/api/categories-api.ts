@@ -1,6 +1,7 @@
 import { Axios } from 'axios'
 import { CreateCategoryDto } from '../types/categories'
 import { Category } from '../types/categories'
+import { RestResponse, ReadCategoryDto } from 'dtos'
 
 export default class CategoriesApi {
   public constructor(private readonly axios: Axios) {}
@@ -21,9 +22,10 @@ export default class CategoriesApi {
     return await this.axios.delete(`/categories/${id}`)
   }
 
-  public async getAll() {
-    const categories = (await this.axios.get<Category[]>('/categories')).data
-    console.log(categories)
+  public async getAll(): Promise<ReadCategoryDto[]> {
+    const categories = (
+      await this.axios.get<RestResponse<ReadCategoryDto[]>>('/categories')
+    ).data.data
     return categories
   }
 

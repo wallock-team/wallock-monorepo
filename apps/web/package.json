@@ -25,7 +25,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "victory": "^36.6.4",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "dtos": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "18.0.3",

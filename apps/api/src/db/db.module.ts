@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { EnvModule, EnvService } from 'src/env'
 import { User } from 'src/users'
 import { Wallet } from 'src/wallets'
+import { Category } from '../categories/entities/category.entity'
+import { Transaction } from '../transactions/entities/transaction.entity'
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { Wallet } from 'src/wallets'
             type: 'better-sqlite3',
             database: ':memory:',
             synchronize: true,
-            entities: [User, Wallet]
+            entities: [User, Wallet, Category, Transaction]
           }
         }
       }

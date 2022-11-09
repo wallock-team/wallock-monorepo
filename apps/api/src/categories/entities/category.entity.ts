@@ -4,7 +4,7 @@ import { BaseEntity } from '../../common/base.entity'
 import { User } from '../../users/entities/user.entity'
 
 @Entity()
-@Unique(['name', 'group', 'type', 'userId'])
+@Unique(['name', 'type', 'userId'])
 export class Category extends BaseEntity {
   @Column()
   name: string

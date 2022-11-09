@@ -48,6 +48,14 @@ export class CategoriesService {
     )
   }
 
+  async getAllCategories(user: User) {
+    return await this.categoryRepo.findBy({
+      user: {
+        id: user.id
+      }
+    })
+  }
+
   public async findCategoryById(user: User, id: number): Promise<Category> {
     const category = await this.categoryRepo.findOneBy({ id })
 
