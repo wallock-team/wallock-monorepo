@@ -1,20 +1,22 @@
 import { ConflictException, NotFoundException } from '@nestjs/common'
+import { CategoryType } from 'dtos'
+import { startCase } from 'lodash'
 
-export class DuplicatedCategoryException extends ConflictException {
-  public constructor() {
-    super('Category must have unique name - type - group')
+export class CategoryAlreadyExistsError extends ConflictException {
+  public constructor(name: string, type: CategoryType) {
+    super(`The ${type} category named ${name} already exists`)
   }
 }
 
 // Extending NotFoundException instead of ForbiddenException
 // to prevent the user from even knowing the category exists
-export class CategoryNotBelongToUserException extends NotFoundException {
+export class CategoryNotBelongToUserError extends NotFoundException {
   public constructor() {
     super('Cannot find the requested category')
   }
 }
 
-export class CategoryNotExistException extends NotFoundException {
+export class CategoryNotExistError extends NotFoundException {
   public constructor() {
     super('Cannot find the requested category')
   }

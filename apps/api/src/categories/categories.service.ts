@@ -1,50 +1,45 @@
 import { Injectable } from '@nestjs/common'
 import {
-  CategoryNotBelongToUserException,
-  CategoryNotExistException,
-  DuplicatedCategoryException
+  CategoryNotBelongToUserError,
+  CategoryAlreadyExistsError
 } from './dto/exceptions'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
-import { CreateCategoryDto } from './dto/create-category.dto'
-import { UpdateCategoryDto } from './dto/update-category.dto'
+import { CategoryType, CreateCategoryDto } from 'dtos'
 import { Category } from './entities/category.entity'
 import initialCategories from './initialCategories.json'
 import { User } from '../users/entities/user.entity'
-import { omit } from 'lodash'
 
 @Injectable()
 export class CategoriesService {
   constructor(
     @InjectRepository(Category)
-    private categoryRepository: Repository<Category>
+    private categoryRepo: Repository<Category>
   ) {}
 
-  async create(user: User, createCategoryDto: CreateCategoryDto) {
-    const { name, type, group } = createCategoryDto
-    const similarCategoryExists = await this.categoryRepository.findOne({
-      where: {
-        user: {
-          id: user.id
-        },
-        name,
-        group,
-        type
+  async createCategory(user: User, dto: CreateCategoryDto): Promise<Category> {
+    const categoryAlreadyExists = await this.findCategoryByNameAndType(
+      user,
+      dto.name,
+      dto.type
+    )
+
+    if (categoryAlreadyExists) {
+      throw new CategoryAlreadyExistsError(dto.name, dto.type)
+    }
+
+    await this.categoryRepo.insert({
+      ...dto,
+      user: {
+        id: user.id
       }
     })
 
-    if (similarCategoryExists) {
-      throw new DuplicatedCategoryException()
-    } else {
-      return await this.categoryRepository.insert({
-        ...createCategoryDto,
-        user: { id: user.id }
-      })
-    }
+    return await this.findCategoryByNameAndType(user, dto.name, dto.type)
   }
 
   async createInitCate(user: User) {
-    await this.categoryRepository.insert(
+    await this.categoryRepo.insert(
       initialCategories.map(c => ({
         user: user,
         ...c,
@@ -53,120 +48,25 @@ export class CategoriesService {
     )
   }
 
-  async update(
+  public async findCategoryById(user: User, id: number): Promise<Category> {
+    const category = await this.categoryRepo.findOneBy({ id })
+
+    if (category.user.id !== user.id) {
+      throw new CategoryNotBelongToUserError()
+    }
+
+    return category
+  }
+
+  public async findCategoryByNameAndType(
     user: User,
-    updateCategoryDto: UpdateCategoryDto
-  ): Promise<Category> {
-    const categoryToBeUpdated = await this.categoryRepository.findOne({
-      where: {
-        id: updateCategoryDto.id
-      }
+    name: string,
+    type: CategoryType
+  ): Promise<Category | null> {
+    return await this.categoryRepo.findOneBy({
+      name,
+      type,
+      userId: user.id
     })
-
-    if (!categoryToBeUpdated) {
-      throw new CategoryNotExistException()
-    }
-
-    if (categoryToBeUpdated.userId !== user.id) {
-      throw new CategoryNotBelongToUserException()
-    }
-
-    const similarCategoryExists = await this.categoryRepository.findOne({
-      where: {
-        name: updateCategoryDto.name ?? categoryToBeUpdated.name,
-        type: categoryToBeUpdated.type,
-        group: updateCategoryDto.group ?? categoryToBeUpdated.group,
-        userId: user.id
-      }
-    })
-
-    if (similarCategoryExists) {
-      throw new DuplicatedCategoryException()
-    }
-
-    await this.categoryRepository.update(
-      updateCategoryDto.id,
-      omit(updateCategoryDto, 'id')
-    )
-
-    return await this.categoryRepository.findOneBy({ id: updateCategoryDto.id })
-  }
-
-  async delete(user: User, id: number) {
-    const categoryToBeDeleted = await this.categoryRepository.findOneBy({ id })
-
-    if (!categoryToBeDeleted || categoryToBeDeleted.user.id !== user.id) {
-      throw new CategoryNotBelongToUserException()
-    }
-
-    await this.categoryRepository.softDelete(id)
-  }
-
-  async findOne(user: User, id: number) {
-    const categoryWithGivenId = await this.categoryRepository.findOne({
-      relations: { user: true },
-      where: {
-        id: id
-      }
-    })
-
-    if (!categoryWithGivenId) throw new CategoryNotExistException()
-    if (categoryWithGivenId.user.id !== user.id) {
-      throw new CategoryNotBelongToUserException()
-    }
-    return categoryWithGivenId
-  }
-
-  async findAll(user: User, includesDeleted?: boolean) {
-    return await this.categoryRepository.find({
-      where: {
-        user: {
-          id: user.id
-        }
-      },
-      withDeleted: includesDeleted ? includesDeleted : false
-    })
-  }
-
-  async findAllByUserId(userId: number) {
-    let categories = await this.categoryRepository.find({
-      relations: {
-        transaction: true
-      },
-      where: {
-        user: {
-          id: userId
-        }
-      }
-    })
-    if (categories) {
-      return categories
-    }
-  }
-
-  async findByIdForUser(id: number, userId: number) {
-    let category = await this.categoryRepository.findOne({
-      relations: {
-        transaction: true,
-        user: true
-      },
-      where: {
-        id: id
-      }
-    })
-    if (category) {
-      if (category.user.id == userId) {
-        let { id, name, type, icon, group, transaction } = category
-        return {
-          id,
-          name,
-          type,
-          icon,
-          group,
-          transaction
-        }
-      } else throw new CategoryNotBelongToUserException()
-    }
-    throw new CategoryNotExistException()
   }
 }

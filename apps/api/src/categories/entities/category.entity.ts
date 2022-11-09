@@ -1,6 +1,6 @@
-import { Column, Entity, ManyToOne, OneToMany, Unique } from 'typeorm'
+import { CategoryType } from 'dtos'
+import { Column, Entity, ManyToOne, Unique } from 'typeorm'
 import { BaseEntity } from '../../common/base.entity'
-import { Transaction } from '../../transactions/entities/transaction.entity'
 import { User } from '../../users/entities/user.entity'
 
 @Entity()
@@ -10,24 +10,11 @@ export class Category extends BaseEntity {
   name: string
 
   @Column()
-  type: 'income' | 'expense'
-
-  @Column()
-  group: string
-
-  @Column({
-    nullable: true
-  })
-  icon?: string
+  type: CategoryType
 
   @Column()
   userId: number
 
-  @ManyToOne(() => User, {
-    cascade: false
-  })
+  @ManyToOne(() => User)
   user: User
-
-  @OneToMany(() => Transaction, transaction => transaction.category)
-  transaction: Transaction[]
 }

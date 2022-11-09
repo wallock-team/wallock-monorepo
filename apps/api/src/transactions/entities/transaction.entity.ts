@@ -41,9 +41,7 @@ export class Transaction extends BaseEntity {
   })
   date: Date
 
-  @ManyToOne(() => Category, category => category.transaction, {
-    cascade: false
-  })
+  @ManyToOne(() => Category)
   category: Category
 
   @ManyToOne(() => User, {
