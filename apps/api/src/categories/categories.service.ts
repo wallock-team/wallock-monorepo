@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common'
 import {
   CategoryNotBelongToUserError,
   CategoryAlreadyExistsError
-} from './dto/exceptions'
+} from './errors'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { CategoryType, CreateCategoryDto } from 'dtos'
 import { Category } from './entities/category.entity'
-import initialCategories from './initialCategories.json'
+import { initialCategories } from './initial-categories'
 import { User } from '../users/entities/user.entity'
 
 @Injectable()
@@ -38,12 +38,13 @@ export class CategoriesService {
     return await this.findCategoryByNameAndType(user, dto.name, dto.type)
   }
 
-  async createInitCate(user: User) {
+  async createInitialCategories(user: User) {
+    initialCategories
+
     await this.categoryRepo.insert(
-      initialCategories.map(c => ({
-        user: user,
-        ...c,
-        type: c.type as 'expense' | 'income'
+      initialCategories.map(category => ({
+        ...category,
+        userId: user.id
       }))
     )
   }

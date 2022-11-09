@@ -23,10 +23,7 @@ export default class CategoriesApi {
   }
 
   public async getAll(): Promise<ReadCategoryDto[]> {
-    const categories = (
-      await this.axios.get<RestResponse<ReadCategoryDto[]>>('/categories')
-    ).data.data
-    return categories
+    return (await this.axios.get<ReadCategoryDto[]>('/categories')).data
   }
 
   public async getById(id: number) {

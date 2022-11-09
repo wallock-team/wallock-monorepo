@@ -127,6 +127,7 @@ importers:
       '@mui/icons-material': ^5.8.4
       '@mui/material': ^5.8.7
       '@mui/x-date-pickers': ^5.0.3
+      '@types/lodash': ^4.14.184
       '@types/node': 18.0.3
       '@types/react': 18.0.15
       '@types/react-dom': 18.0.6
@@ -138,6 +139,7 @@ importers:
       eslint-config-next: 12.2.0
       formik: ^2.2.9
       install: ^0.13.0
+      lodash: ^4.17.21
       next: 12.2.0
       npm: ^8.19.1
       react: 18.2.0
@@ -158,6 +160,7 @@ importers:
       dtos: link:../../packages/dtos
       formik: 2.2.9_react@18.2.0
       install: 0.13.0
+      lodash: 4.17.21
       next: 12.2.0_biqbaboplfbrettd7655fr4n2y
       npm: 8.19.2
       react: 18.2.0
@@ -165,6 +168,7 @@ importers:
       victory: 36.6.8_react@18.2.0
       yup: 0.32.11
     devDependencies:
+      '@types/lodash': 4.14.186
       '@types/node': 18.0.3
       '@types/react': 18.0.15
       '@types/react-dom': 18.0.6

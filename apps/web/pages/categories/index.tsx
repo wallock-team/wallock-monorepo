@@ -1,14 +1,18 @@
 import {
   Container,
+  Divider,
   List,
   ListItem,
   ListItemText,
-  ListSubheader
+  ListSubheader,
+  Paper
 } from '@mui/material'
 import { ReadCategoryDto } from 'dtos'
 import { BackOrConfirmAppBar } from '../../components/back-or-confirm-app-bar'
 import Api from '../../lib/api/api'
 import withAuthPage from '../../lib/auth/withAuthPage'
+
+import _ from 'lodash'
 
 type Props = {
   categories: ReadCategoryDto[]
@@ -28,23 +32,30 @@ const CategoriesPage = (props: Props) => {
   return (
     <>
       <BackOrConfirmAppBar />
-      <Container>
-        <List>
-          {props.categories
-            .map(category => category.type)
-            .map(type => (
-              <>
-                <ListSubheader key={type}>{type}</ListSubheader>
-                {props.categories
-                  .filter(category => category.type === type)
-                  .map(category => (
-                    <ListItem key={category.id}>
-                      <ListItemText primary={category.name} />
-                    </ListItem>
-                  ))}
-              </>
-            ))}
-        </List>
+      <Container maxWidth="md" sx={{ mt: 8 }}>
+        <Paper elevation={2}>
+          <List>
+            {_(props.categories)
+              .map(category => category.type)
+              .uniq()
+              .value()
+              .map(type => (
+                <>
+                  <Divider />
+                  <ListSubheader key={type}>{_.startCase(type)}</ListSubheader>
+                  <Divider />
+
+                  {props.categories
+                    .filter(category => category.type === type)
+                    .map(category => (
+                      <ListItem key={category.id}>
+                        <ListItemText primary={category.name} />
+                      </ListItem>
+                    ))}
+                </>
+              ))}
+          </List>
+        </Paper>
       </Container>
     </>
   )

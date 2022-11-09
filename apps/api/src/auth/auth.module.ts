@@ -11,6 +11,7 @@ import { AuthService } from './auth.service'
 import { GoogleStrategy } from './google.strategy'
 import { JwtStrategy } from './jwt.strategy'
 import { UsersModule } from 'src/users'
+import { CategoriesModule } from '../categories/categories.module'
 
 const ONE_HOUR = 3600
 
@@ -19,6 +20,7 @@ const ONE_HOUR = 3600
     PassportModule,
     EnvModule,
     UsersModule,
+    CategoriesModule,
     TypeOrmModule.forFeature([User]),
     JwtModule.registerAsync({
       imports: [EnvModule],

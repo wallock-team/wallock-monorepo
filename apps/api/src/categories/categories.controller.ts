@@ -19,22 +19,18 @@ export class CategoriesController {
 
   @Post()
   @UsePipes(new JoiValidationPipe(createCategorySchema))
-  async create(
+  async createCategory(
     @Req() req: AuthenticatedRequest,
     @Body() dto: CreateCategoryDto
-  ): Promise<RestResponse<ReadCategoryDto>> {
-    return {
-      message: `Created ${dto.type} category '${dto.name}' successfully`,
-      data: await this.categoriesService.createCategory(req.user, dto)
-    }
+  ) {
+    return await this.categoriesService.createCategory(req.user, dto)
   }
 
   @Get()
-  async getAllCategories(@Req() req: AuthenticatedRequest): Promise<RestResponse<ReadCategoryDto[]>> {
-    return {
-      message: 'Got all categories successfully',
-      data: await this.categoriesService.getAllCategories(req.user)
-    }
+  async getAllCategories(
+    @Req() req: AuthenticatedRequest
+  ): Promise<ReadCategoryDto[]> {
+    return await this.categoriesService.getAllCategories(req.user)
   }
 
   @Get(':id')
