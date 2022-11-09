@@ -1,0 +1,4 @@
+{
+  "target": "node16-linux-x64",
+  "outPath": "./dist/pkg"
+}
